@@ -1,0 +1,34 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres_boiler_container
+    image: postgis/postgis:13-3.2-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - ./init-db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    ports:
+      - "5454:5432"
+    networks:
+      - network-boilerbasic
+      
+
+  pgadmin:
+    container_name: pgadmin_boiler_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: eze@root.com
+      PGADMIN_DEFAULT_PASSWORD: ezequiel
+      PGADMIN_CONFIG_SERVER_MODE: "False"    
+    ports:
+      - "6002:80"
+    networks:
+      - network-boilerbasic
+      
+
+networks:
+  network-boilerbasic:
+  

@@ -12,5 +12,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: process.env.DB_NAME,
   autoLoadEntities: true,
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  migrations: [`${__dirname}/migrations/**/*{.ts,.js}`],
   synchronize: true,
 };
