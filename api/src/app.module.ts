@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductModule } from './product/product.module';
+import { ProductModule } from './features/product/product.module';
 import { typeOrmConfig } from './typeorm.config';
-import { StockMovementModule } from './stock-movement/stock-movement.module';
+import { StockMovementModule } from './features/stock_movement/stock_movement.module';
 
 @Module({
   imports: [

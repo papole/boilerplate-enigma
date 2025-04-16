@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateStockMovementDto } from './create-stock-movement.dto';
+import { CreateStockMovementDto } from './create-stock_movement.dto';
 
 export class UpdateStockMovementDto extends PartialType(CreateStockMovementDto) {}
