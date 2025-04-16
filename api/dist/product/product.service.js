@@ -6,21 +6,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.ProductService = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const product_module_1 = require("./product/product.module");
-const typeorm_config_1 = require("./typeorm.config");
-const stock_movement_module_1 = require("./stock-movement/stock-movement.module");
-let AppModule = class AppModule {
+let ProductService = class ProductService {
+    create(productDto) {
+        return 'This action adds a new product';
+    }
+    findAll() {
+        return `This action returns all product`;
+    }
+    findOne(id) {
+        return `This action returns a #${id} product`;
+    }
+    update(id, updateProductDto) {
+        return `This action updates a #${id} product`;
+    }
+    remove(id) {
+        return `This action removes a #${id} product`;
+    }
 };
-exports.AppModule = AppModule;
-exports.AppModule = AppModule = __decorate([
-    (0, common_1.Module)({
-        imports: [
-            typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeOrmConfig),
-            product_module_1.ProductModule, stock_movement_module_1.StockMovementModule
-        ],
-    })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+exports.ProductService = ProductService;
+exports.ProductService = ProductService = __decorate([
+    (0, common_1.Injectable)()
+], ProductService);
+//# sourceMappingURL=product.service.js.map

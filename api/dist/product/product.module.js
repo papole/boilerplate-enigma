@@ -6,21 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.ProductModule = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const product_module_1 = require("./product/product.module");
-const typeorm_config_1 = require("./typeorm.config");
-const stock_movement_module_1 = require("./stock-movement/stock-movement.module");
-let AppModule = class AppModule {
+const product_service_1 = require("./product.service");
+const product_controller_1 = require("./product.controller");
+let ProductModule = class ProductModule {
 };
-exports.AppModule = AppModule;
-exports.AppModule = AppModule = __decorate([
+exports.ProductModule = ProductModule;
+exports.ProductModule = ProductModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeOrmConfig),
-            product_module_1.ProductModule, stock_movement_module_1.StockMovementModule
-        ],
+        controllers: [product_controller_1.ProductController],
+        providers: [product_service_1.ProductService],
     })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+], ProductModule);
+//# sourceMappingURL=product.module.js.map

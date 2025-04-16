@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
 import { EntityBase } from "src/commons/entity/entity-base";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
 @Entity()
 export class Product extends EntityBase {

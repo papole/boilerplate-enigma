@@ -1,14 +1,17 @@
 import { 
+  BeforeInsert,
     CreateDateColumn, 
     DeleteDateColumn, 
+    PrimaryColumn, 
     PrimaryGeneratedColumn, 
     UpdateDateColumn 
 } from 'typeorm'
+import { v4 as uuidv4 } from 'uuid';
 
 export class EntityBase {
 
-  @PrimaryGeneratedColumn()
-  id?: number
+  @PrimaryColumn('uuid')
+  id?: string
 
   @DeleteDateColumn({ select: false, nullable: true })
   deletedAt?: Date
@@ -18,4 +21,9 @@ export class EntityBase {
 
   @UpdateDateColumn()
   updatedAt?: Date
+
+  @BeforeInsert()
+  generateId() {
+    this.id = uuidv4();
+  }
 }
