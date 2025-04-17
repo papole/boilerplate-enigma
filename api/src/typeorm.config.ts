@@ -19,4 +19,5 @@ export const typeOrmConfig: DataSourceOptions = {
   migrationsTableName: "migrations"
 };
 
+
 export default new DataSource(typeOrmConfig)

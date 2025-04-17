@@ -1,14 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ProductDto, UpdateProductDto } from './dto/product.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Product } from './entities/product.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
-  create(productDto: ProductDto) {
-    return 'This action adds a new product';
+
+  constructor (
+    @InjectRepository(Product) private readonly productRepository: Repository<Product> 
+  ){}
+
+  async create(productDto: ProductDto) {   
+    try {
+      const product = this.productRepository.create(productDto);
+      await this.productRepository.save(product);
+      return product
+    } catch (error) {
+      throw new InternalServerErrorException(error);      
+    } 
   }
 
   findAll() {
-    return `This action returns all product`;
+    return this.productRepository.find({});
   }
 
   findOne(id: number) {

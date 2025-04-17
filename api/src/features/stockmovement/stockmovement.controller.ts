@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { StockMovementService } from './stock_movement.service';
-import { CreateStockMovementDto, UpdateStockMovementDto } from './dto/stock_movement.dto';
+import { StockMovementService } from './stockmovement.service';
+import { CreateStockMovementDto, UpdateStockMovementDto } from './dto/stockmovement.dto';
 
 @Controller('stock-movement')
 export class StockMovementController {

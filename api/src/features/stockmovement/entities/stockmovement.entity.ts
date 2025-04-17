@@ -1,10 +1,12 @@
 import { Product } from "src/features/product/entities/product.entity";
-import { Column, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { TypeMovement } from '../../../commons/enum/type_movement';
 import { IsEnum, IsNotEmpty, IsNumber, Min } from "class-validator";
 import { Type } from "class-transformer";
+import { EntityBase } from '../../../commons/entity/entity-base';
 
-export class StockMovement {
+@Entity()
+export class StockMovement extends EntityBase {
     @ManyToOne(() => Product, { nullable: false })
     @JoinColumn()
     productId!: Product

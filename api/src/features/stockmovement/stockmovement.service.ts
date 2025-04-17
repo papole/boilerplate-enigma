@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStockMovementDto, UpdateStockMovementDto } from './dto/stock_movement.dto';
+import { CreateStockMovementDto, UpdateStockMovementDto } from './dto/stockmovement.dto';
 
 @Injectable()
 export class StockMovementService {

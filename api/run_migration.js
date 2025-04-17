@@ -3,7 +3,7 @@
 const { exec } = require('child_process')
 
 // Ejecuta el comando de migración
-exec('npm run typeorm migration:run', (error, stdout, stderr) => {
+exec('npx typeorm migration:run', (error, stdout, stderr) => {
   if (error) {
     console.error(`Error durante la migración: ${error.message}`)
     process.exit(1) // Retorna un código de error
