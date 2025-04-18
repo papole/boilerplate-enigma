@@ -1,10 +1,11 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { ProductDto, UpdateProductDto } from './dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { StockMovementService } from '../stockmovement/stockmovement.service';
-import { TypeMovement } from 'src/commons/enum/type_movement';
+import { TypeMovement } from 'src/common/enum/type_movement';
+import { PaginationDto } from '../../common/dto/pagination.dto';
 
 @Injectable()
 export class ProductService {
@@ -17,13 +18,16 @@ export class ProductService {
 
   async create(productDto: ProductDto) {   
     try {
+      const { stock } = productDto
+      if(stock) if (stock < 0) throw new BadRequestException('stock must be greater than zero')
+
       const product = this.productRepository.create(productDto);
   
       await this.productRepository.save(product);
-      if (product.stock > 0) {
+      if (product.stock) {
         await this.stockMovementService.create({
           productId: product.id,          
-          quantity: product.stock,
+          quantity: product.stock || 0,
           typemv: TypeMovement.IN
         });
       }
@@ -33,8 +37,12 @@ export class ProductService {
     } 
   }
 
-  findAll() {
-    return this.productRepository.find({});
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 5, offset = 0 } = paginationDto
+    return this.productRepository.find({
+      take: limit,
+      skip: offset
+    });
   }
 
   async findOne(id: string) {
@@ -51,13 +59,54 @@ export class ProductService {
     return product;
   }
 
+  async update(id: string, updateProductDto: UpdateProductDto, typeMovement?: TypeMovement) {
 
+    if (!typeMovement && 'stock' in updateProductDto) {
+      delete updateProductDto.stock;
+    }
+    
+    if (typeMovement && updateProductDto.stock) {
+      const updateProduct = await this.productRepository.preload({
+        id,
+      });
+  
+      if (!updateProduct) throw new NotFoundException('Product not found');
+  
+      const actualStock = updateProduct.stock ?? 0;
+  
+      let newStock = actualStock;
+  
+      if (typeMovement === TypeMovement.IN) {
+        newStock += updateProductDto.stock;        
+      } else if (typeMovement === TypeMovement.OUT) {
+        newStock -= updateProductDto.stock;        
+      }
+  
+      if (newStock < 0) throw new BadRequestException('No stock for this request');  
+      
+      updateProduct.stock = newStock;
+  
+      // Guardar movimiento
+      await this.stockMovementService.create({
+        productId: id,
+        quantity: updateProductDto.stock,
+        typemv: typeMovement,
+      });
+      return await this.productRepository.save(updateProduct);
+    }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    const updateProduct = await this.productRepository.preload({
+      id,
+      ...updateProductDto
+    });
+
+    if (!updateProduct) throw new NotFoundException('Product not found');
+
+    return await this.productRepository.save(updateProduct);
+  
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} product`;
   }
 }

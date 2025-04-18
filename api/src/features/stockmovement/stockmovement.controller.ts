@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { StockMovementService } from './stockmovement.service';
 import { CreateStockMovementDto } from './dto/stockmovement.dto';
+import { PaginationDto } from '../../common/dto/pagination.dto';
 
 @Controller('stock-movement')
 export class StockMovementController {
@@ -12,12 +13,12 @@ export class StockMovementController {
   }
 
   @Get()
-  findAll() {
-    return this.stockMovementService.findAll();
+  findAll( @Query() paginationDto:PaginationDto ) {
+    return this.stockMovementService.findAll( paginationDto );
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.stockMovementService.findOne(+id);
+    return this.stockMovementService.findOne(id);
   }
 }

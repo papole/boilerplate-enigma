@@ -1,15 +1,24 @@
 import { Product } from "src/features/product/entities/product.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { TypeMovement } from '../../../commons/enum/type_movement';
-import { IsEnum, IsNotEmpty, IsNumber, Min } from "class-validator";
+import { TypeMovement } from '../../../common/enum/type_movement';
+import { EntityBase } from '../../../common/entity/entity-base';
+import { IsEnum, IsNotEmpty, IsNumber, IsString, Min } from "class-validator";
 import { Type } from "class-transformer";
-import { EntityBase } from '../../../commons/entity/entity-base';
 
 @Entity()
 export class StockMovement extends EntityBase {
-    @ManyToOne(() => Product, { nullable: false })
-    @JoinColumn()
-    productId?: Product
+
+    @IsString()    
+    @IsNotEmpty()
+    @Column()
+    productId!: string
+
+    @ManyToOne(
+        () => Product, 
+        ( product ) => product.id,
+        { nullable: false }
+    )
+    product?: Product
 
     @IsEnum(TypeMovement)
     @IsNotEmpty()
