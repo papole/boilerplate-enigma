@@ -2,8 +2,7 @@ import {
   BeforeInsert,
     CreateDateColumn, 
     DeleteDateColumn, 
-    PrimaryColumn, 
-    PrimaryGeneratedColumn, 
+    PrimaryColumn,
     UpdateDateColumn 
 } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid';
@@ -11,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class EntityBase {
 
   @PrimaryColumn('uuid')
-  id?: string
+  id!: string
 
   @DeleteDateColumn({ select: false, nullable: true })
   deletedAt?: Date

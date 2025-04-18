@@ -9,7 +9,7 @@ import { EntityBase } from '../../../commons/entity/entity-base';
 export class StockMovement extends EntityBase {
     @ManyToOne(() => Product, { nullable: false })
     @JoinColumn()
-    productId!: Product
+    productId?: Product
 
     @IsEnum(TypeMovement)
     @IsNotEmpty()

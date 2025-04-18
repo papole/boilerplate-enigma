@@ -1,10 +1,28 @@
-import { Injectable } from '@nestjs/common';
-import { CreateStockMovementDto, UpdateStockMovementDto } from './dto/stockmovement.dto';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { CreateStockMovementDto } from './dto/stockmovement.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { StockMovement } from './entities/stockmovement.entity';
+import { ProductService } from '../product/product.service';
 
 @Injectable()
 export class StockMovementService {
-  create(createStockMovementDto: CreateStockMovementDto) {
-    return 'This action adds a new stockMovement';
+  constructor (
+    @InjectRepository(StockMovement) 
+    private readonly stockMovementRepository: Repository<StockMovement>,
+    @Inject(forwardRef(() => ProductService))
+    private readonly productService: ProductService
+  ){}
+
+  async create(createStockMovementDto: CreateStockMovementDto) {
+    const { productId, ...rest } = createStockMovementDto
+
+    const newStockMovement = this.stockMovementRepository.create(rest)    
+    
+    if (productId) newStockMovement.productId = await this.productService.findByIdOrFail(productId)
+
+    return await this.stockMovementRepository.save(newStockMovement);
+    
   }
 
   findAll() {
@@ -15,11 +33,4 @@ export class StockMovementService {
     return `This action returns a #${id} stockMovement`;
   }
 
-  update(id: number, updateStockMovementDto: UpdateStockMovementDto) {
-    return `This action updates a #${id} stockMovement`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} stockMovement`;
-  }
 }
