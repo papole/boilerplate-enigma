@@ -41,12 +41,15 @@ export class ProductService {
     const { limit = 5, offset = 0 } = paginationDto
     return this.productRepository.find({
       take: limit,
-      skip: offset
+      skip: offset,
+      relations:{
+        stockMovement: true
+      }
     });
   }
 
   async findOne(id: string) {
-    const product = await this.productRepository.findOneBy({id})
+    const product = await this.productRepository.findOne({where:{ id }, relations:['stockMovement']})
     if(!product){
       throw new NotFoundException(`Producto no encontrato ${id}`)
     }

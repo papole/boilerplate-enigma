@@ -41,4 +41,15 @@ export class StockMovementService {
     return stockMovement;
   }
 
+  /*
+  ESTE VERSION BUSCA POR ID DE PRODUCTO 
+  async findOne(id: string) {
+    const stockMovement = await this.stockMovementRepository.find({where:{ productId:id },relations:['product'] })
+    if(!stockMovement){
+      throw new NotFoundException(`Stock movement not found ${id} `)
+    }
+    return stockMovement;
+  }
+   */
+
 }
