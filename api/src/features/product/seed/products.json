@@ -1,0 +1,11 @@
+[
+    {
+        "name":"Producto uno",
+        "sku":"ElSkuUno",
+        "stock":10
+    },
+    {
+        "name":"Producto dos",
+        "sku":"ElSkudos"
+    }
+]
