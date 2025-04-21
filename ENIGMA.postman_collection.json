@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "11042762-3663-4b59-8797-eb40f7fcf475",
+		"name": "ENIGMA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1027320"
+	},
+	"item": [
+		{
+			"name": "Stock movement",
+			"item": [
+				{
+					"name": "All stock movement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/stock-movement?limit=20&offset=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"stock-movement"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stock movement by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/stock-movement/c20ab057-6e14-43a4-ba2c-891bce8b15ab",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"stock-movement",
+								"c20ab057-6e14-43a4-ba2c-891bce8b15ab"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"test product 50\",\n    \"sku\":\"12348fdfddf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/product",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/product?limit=20&offset=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producto by UUID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"test product 6\",\n    \"sku\":\"12348fdfddf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/product/b2b796bc-d97b-4402-942e-2ae48034e9fc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"product",
+								"b2b796bc-d97b-4402-942e-2ae48034e9fc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"edit product\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/product/b2b796bc-d97b-4402-942e-2ae48034e9fc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"product",
+								"b2b796bc-d97b-4402-942e-2ae48034e9fc"
+							],
+							"query": [
+								{
+									"key": "typeMovement",
+									"value": "OUT",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Edit stock Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Ahora edito el stock editar el stock \",\n    \"stock\":20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/product/3e0abeb5-cd8d-44fe-b94b-7c62bc102dd8?typeMovement=OUT",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"product",
+								"3e0abeb5-cd8d-44fe-b94b-7c62bc102dd8"
+							],
+							"query": [
+								{
+									"key": "typeMovement",
+									"value": "OUT"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
