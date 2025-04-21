@@ -1,0 +1,23 @@
+.container {
+  background: white;
+  padding: 20px;
+}
+
+.boton {
+  text-decoration: none;
+  appearance: none;
+  border:1px solid;
+  background-color: #0000;
+  box-shadow: 2px 2px 0 2px #000;
+  cursor:pointer;
+  transition: 0.1s ease;
+  padding: 0.5em 1em;
+  font-size: 1.3rem;
+  border-radius: 0.2em;
+  margin: 5px;
+}
+
+.boton:active{
+  box-shadow: -2px -2px 0 2px #000, inset 2px 2px 6px #0008;
+  translate: 2px 2px;
+}

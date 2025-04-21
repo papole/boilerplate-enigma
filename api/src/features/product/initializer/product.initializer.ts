@@ -13,7 +13,7 @@ export class productInitializer implements OnModuleInit {
 
   private async initialProductsConfig() {
     const products = await this.productService.findAll()
-    const productsSet = new Set(products.map(c => c.id))
+    const productsSet = new Set(products.map(c => c.sku))
 
     const initialProducts: { name: string; sku: string }[] = Products
 
