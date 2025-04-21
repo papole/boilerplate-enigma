@@ -6,17 +6,11 @@ import ProductModal from '../components/modal/modal';
 
 import styles from './style.module.css';
 import { Pagination } from '../models/pagination';
-const mockProduct = {
-  id:'',
-  name: 'Producto demo',
-  sku: 'ABC123',
-  stock: 50,
-};
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<null | typeof mockProduct>(null);
+  const [editingProduct, setEditingProduct] = useState<null | Product>(null);
   const [pagination, setPagination] = useState<Pagination>();
 
   const openForCreate = () => {
@@ -24,7 +18,7 @@ export default function ProductsPage() {
     setModalOpen(true);
   };
 
-  const openForEdit = async (product: typeof mockProduct) => {
+  const openForEdit = async (product: Product) => {
     setEditingProduct(product);
     setModalOpen(true);
   };
