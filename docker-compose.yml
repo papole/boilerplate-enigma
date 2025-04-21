@@ -1,33 +1,24 @@
 version: '3.5'
 
 services:
-  postgres:
-    container_name: postgres_boiler_container
-    image: postgis/postgis:13-3.2-alpine
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /data/postgres
+   db:
+    container_name: db_enigma
+    image: mariadb:10.6.4-focal
     volumes:
-      - ./init-db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
-    ports:
-      - "5454:5432"
+      - ./init-db/init.sql:/data/application/init.sql
+    restart: always
     networks:
       - network-boilerbasic
-      
-
-  pgadmin:
-    container_name: pgadmin_boiler_container
-    image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: eze@root.com
-      PGADMIN_DEFAULT_PASSWORD: ezequiel
-      PGADMIN_CONFIG_SERVER_MODE: "False"    
+      - MYSQL_ROOT_PASSWORD=enigma
+      - MYSQL_DATABASE=basic_boiler
+      - MYSQL_USER=enigma
+      - MYSQL_PASSWORD=enigma
     ports:
-      - "6002:80"
-    networks:
-      - network-boilerbasic
-      
+      - 3307:3306
+    command: --init-file /data/application/init.sql        
+    expose:
+      - 3307      
 
 networks:
   network-boilerbasic:

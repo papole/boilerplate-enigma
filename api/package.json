@@ -21,6 +21,7 @@
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.1",
         "dotenv": "^16.3.1",
+        "mysql2": "^3.14.0",
         "pg": "^8.11.0",
         "reflect-metadata": "^0.1.13",
         "rxjs": "^7.8.0",
@@ -41,17 +42,17 @@
     },
     "jest": {
         "moduleFileExtensions": [
-          "js",
-          "json",
-          "ts"
+            "js",
+            "json",
+            "ts"
         ],
         "rootDir": "src",
         "testRegex": ".*\\.spec\\.ts$",
         "transform": {
-          "^.+\\.(t|j)s$": "ts-jest"
+            "^.+\\.(t|j)s$": "ts-jest"
         },
         "collectCoverageFrom": [
-          "**/*.(t|j)s"
+            "**/*.(t|j)s"
         ],
         "coverageDirectory": "../coverage",
         "testEnvironment": "node"

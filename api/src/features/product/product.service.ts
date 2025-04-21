@@ -39,15 +39,27 @@ export class ProductService {
 
   async findAll(paginationDto?: PaginationDto) {
     const limit = paginationDto?.limit || 5 
-    const offset = paginationDto?.offset || 0
+    const page = paginationDto?.page || 1
+    const offset = (page - 1) * limit;
+
     
-    return this.productRepository.find({
+    const [data, total] = await this.productRepository.findAndCount({
       take: limit,
       skip: offset,
-      relations:{
-        stockMovement: true
-      }
+      relations: {
+        stockMovement: true,
+      },
     });
+
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      data,
+      total,
+      totalPages,
+      currentPage: Math.floor(offset / limit) + 1,
+    };
+
   }
 
   async findOne(id: string) {

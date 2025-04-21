@@ -5,6 +5,7 @@ import ProductList from '../components/ProductList';
 import ProductModal from '../components/modal/modal';
 
 import styles from './style.module.css';
+import { Pagination } from '../models/pagination';
 const mockProduct = {
   id:'',
   name: 'Producto demo',
@@ -16,6 +17,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<null | typeof mockProduct>(null);
+  const [pagination, setPagination] = useState<Pagination>();
 
   const openForCreate = () => {
     setEditingProduct(null);
@@ -27,9 +29,19 @@ export default function ProductsPage() {
     setModalOpen(true);
   };
 
-  const loadProducts = () => {
-    getProducts()
-      .then(res => setProducts(res.data))
+  const loadProducts = (offset: number = 0) => {
+    console.log('loadProducts',offset)
+    getProducts(offset)
+      .then(res => {
+        setPagination(
+          {
+            total:res.total, 
+            currentPage:res.currentPage,
+            totalPages:res.totalPages
+          }
+        )
+        setProducts(res.data)
+      })
       .catch(err => console.error('Error al cargar productos', err));
   };
 
@@ -51,6 +63,8 @@ export default function ProductsPage() {
         items={products} 
         onEdit={openForEdit}
         addStock={handleSaved}
+        onChangeOffset={loadProducts}
+        setPagination={pagination}
       />
 
       <ProductModal

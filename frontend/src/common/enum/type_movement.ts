@@ -1,4 +1,4 @@
 export enum TypeMovement {
-    OUT = 'OUT',
-    IN = 'IN',
-  }
+  OUT = 'OUT',
+  IN = 'IN',
+}

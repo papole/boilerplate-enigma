@@ -6,8 +6,12 @@ const api = axios.create({
   baseURL: 'http://localhost:3000/api',
 });
 
-export const getProducts = () => api.get('/product',{params:{limit:8,offset:0}});
-export const getMovements = () => api.get('/stock-movement',{params:{limit:8,offset:0}});
+export const getProducts = async (page:number = 0) => {
+  return api.get('/product',{params:{limit:5,page}}).then((res) => {return res.data});
+};
+export const getMovements = async (page = 0) => {
+  return api.get('/stock-movement',{params:{limit:5,page}}).then((res) => {return res.data});
+}
 
 export const handleMovement = async (productId: string, typeMovement: TypeMovement, stock = 1) => {
   try {

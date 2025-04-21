@@ -78,6 +78,7 @@ export default function ProductModal({ isOpen, onClose, product, onSaved }: Moda
             placeholder="Stock"
             value={stock}
             onChange={(e) => setStock(Number(e.target.value))}
+            disabled={!!product}
             required
           />
           <button type="submit" className={styles.botonaction}>

@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export const typeOrmConfig: DataSourceOptions = {
-  type: 'postgres',
+  type: process.env.DB_TYPE as any || 'postgres',
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || '5432'),
   username: process.env.DB_USERNAME,

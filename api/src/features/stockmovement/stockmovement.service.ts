@@ -23,14 +23,26 @@ export class StockMovementService {
   }
 
   async findAll(paginationDto: PaginationDto) {
-    const { limit = 5, offset = 0 } = paginationDto
-    return this.stockMovementRepository.find({
+    const limit = paginationDto?.limit || 5 
+    const page = paginationDto?.page || 1
+    const offset = (page - 1) * limit;
+
+    const [data, total] = await this.stockMovementRepository.findAndCount({
       take: limit,
       skip: offset,
-      relations:{
-        product: true
-      }
+      relations: {
+        product: true,
+      },
     });
+  
+    const totalPages = Math.ceil(total / limit);
+  
+    return {
+      data,
+      total,
+      totalPages,
+      currentPage: Math.floor(offset / limit) + 1,
+    };
   }
 
   async findOne(id: string) {
