@@ -2,17 +2,27 @@
 
   1 - Ejecutar comando 
   ```bash 
-  make start
+    make start
   ```
   esta acción inicia un contenedor Docker con una base de datos mariadb en el puerto 3307
   
-  2 - Ir al directorio de la api `cd api && nvm use && npm install`
-  
-  3 - ejecutar las migrations `npm run migration:run`
+  2 - Ir al directorio de la api 
+  ```bash
+    cd api && nvm use && npm install`
+  ```  
+  3 - ejecutar las migrations 
+  ```bash
+    npm run migration:run`
+  ```
+  4 - Iniciar servidor. El servidor escuchara en el puerto 3000
+  ```bash
+    `npm start`
+  ```
 
-  4 - Iniciar servidor `npm start`.El servidor escuchara en el puerto 3000
-
-  5 - Para el test ejecutar este comando `npm run test:e2e`
+  5 - Para el test ejecutar este comando 
+  ```bash
+    npm run test:e2e
+  ```
   
 # Frontend
 
