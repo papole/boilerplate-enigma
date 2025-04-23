@@ -16,7 +16,7 @@
   ```
   4 - Iniciar servidor. El servidor escuchara en el puerto 3000
   ```bash
-    `npm start`
+    npm start
   ```
 
   5 - Para el test ejecutar este comando 
