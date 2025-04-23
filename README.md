@@ -8,7 +8,7 @@
   
   2 - Ir al directorio de la api 
   ```bash
-    cd api && nvm use && npm install`
+    cd api && nvm use && npm install
   ```  
   3 - ejecutar las migrations 
   ```bash
