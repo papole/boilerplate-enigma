@@ -12,7 +12,7 @@
   ```  
   3 - ejecutar las migrations 
   ```bash
-    npm run migration:run`
+    npm run migration:run
   ```
   4 - Iniciar servidor. El servidor escuchara en el puerto 3000
   ```bash
