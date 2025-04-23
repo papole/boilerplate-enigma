@@ -18,7 +18,7 @@ describe('ProductController (e2e)', () => {
     await app.init();
   });
 
-  it('/product (GET) - 200', () => {
+  it('/product (GET) all products - 200', () => {
     return request(app.getHttpServer())
       .get('/product?limit=20&page=1')
       .expect(200)
@@ -32,7 +32,7 @@ describe('ProductController (e2e)', () => {
       });
   });  
 
-  it('/product (POST) - 200', () => {
+  it('/product (POST) new product - 200', () => {
     return request(app.getHttpServer())
       .post('/product')
       .send({ name: 'Camisa', sku: '123', stock: 10 })
@@ -42,7 +42,17 @@ describe('ProductController (e2e)', () => {
       });
   });
 
-  it('/product (PATH) - 404', () => {
+  it('/product (PATCH) edit product - 200', () => {
+    return request(app.getHttpServer())
+      .patch(`/product/${data[0].id}`)
+      .send({ name: 'Deste Test se edita nombre', sku: 'ElSkuTest' })
+      .expect(200)
+      .expect((res: request.Response) => {
+        expect(res.body).toHaveProperty('id');
+      });
+  });  
+
+  it('/product (PATCH) edit stock fail - 404', () => {
     return request(app.getHttpServer())
       .patch(`/product/abdc?typeMovement=IN`)
       .send({ stock: 10 })
@@ -53,7 +63,7 @@ describe('ProductController (e2e)', () => {
       });
   });
 
-  it('/product (PATH) STOCK OUT - 400', () => {
+  it('/product (PATCH) stock not available  STOCK OUT - 400', () => {
     return request(app.getHttpServer())
       .patch(`/product/${data[0].id}?typeMovement=OUT`)
       .send({ stock: 10000 })
@@ -64,7 +74,7 @@ describe('ProductController (e2e)', () => {
       });
   });
 
-  it('/product (PATH) STOCK IN - 200', () => {
+  it('/product (PATCH) edit stock success STOCK IN - 200', () => {
     return request(app.getHttpServer())
       .patch(`/product/${data[0].id}?typeMovement=IN`)
       .send({ stock: 8 })
@@ -74,12 +84,21 @@ describe('ProductController (e2e)', () => {
       });
   });
 
-  it('/stock-movement (GET) - 200', () => {
+  it('/product (PATCH) edit stock success  STOCK OUT - 200', () => {
+    return request(app.getHttpServer())
+      .patch(`/product/${data[0].id}?typeMovement=OUT`)
+      .send({ stock: 1 })
+      .expect(200)
+      .expect((res: request.Response) => {
+        expect(res.body).toHaveProperty('id');
+      });
+  });
+
+  it('/stock-movement (GET) all movements stock - 200', () => {
     return request(app.getHttpServer())
       .get('/stock-movement?limit=20&page=1')
       .expect(200)
-      .expect((res: request.Response) => {
-        data = res.body.data
+      .expect((res: request.Response) => {        
         //como body no es un array debo comentar esta linea 
         //expect(Array.isArray(res.body)).toBe(true);        
         expect(Array.isArray(res.body.data)).toBe(true);        
