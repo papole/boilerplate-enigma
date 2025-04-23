@@ -1,7 +1,8 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
-import { EntityBase } from "src/common/entity/entity-base";
+
 import { StockMovement } from "../../stockmovement/entities/stockmovement.entity";
 import { Column, Entity, OneToMany } from "typeorm";
+import { EntityBase } from '../../../common/entity/entity-base';
 
 @Entity()
 export class Product extends EntityBase {

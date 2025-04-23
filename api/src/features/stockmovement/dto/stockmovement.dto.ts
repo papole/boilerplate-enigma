@@ -1,6 +1,6 @@
 import { Type } from "class-transformer";
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { TypeMovement } from "src/common/enum/type_movement";
+import { TypeMovement } from "../../../common/enum/type_movement";
 
 export class CreateStockMovementDto {
     @IsString()

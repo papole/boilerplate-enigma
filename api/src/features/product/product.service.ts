@@ -2,10 +2,11 @@ import { BadRequestException, Injectable, InternalServerErrorException, NotFound
 import { ProductDto, UpdateProductDto } from './dto/product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { StockMovementService } from '../stockmovement/stockmovement.service';
-import { TypeMovement } from 'src/common/enum/type_movement';
+
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { TypeMovement } from '../../common/enum/type_movement';
 
 @Injectable()
 export class ProductService {

@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, BadRequestExc
 import { ProductService } from './product.service';
 import { ProductDto, UpdateProductDto } from './dto/product.dto';
 import { PaginationDto } from '../../common/dto/pagination.dto';
-import { TypeMovement } from 'src/common/enum/type_movement';
+import { TypeMovement } from '../../common/enum/type_movement';
+
+
 
 @Controller('product')
 export class ProductController {

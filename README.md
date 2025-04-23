@@ -11,6 +11,8 @@
   3 - ejecutar las migrations `npm run migration:run`
 
   4 - Iniciar servidor `npm start`.El servidor escuchara en el puerto 3000
+
+  5 - Para el test ejecutar este comando `npm run test:e2e`
   
 # Frontend
 
